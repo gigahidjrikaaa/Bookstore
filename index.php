@@ -1,7 +1,6 @@
 <?php
     require_once('connection.php');
-
-    session_start();
+    require_once('table_management.php');
 
     // if table name is not set, set it to books
     if (!isset($_POST['table']))
@@ -13,27 +12,27 @@
     // Change column name based on table name
     if ($tablename == 'addresses')
     {
-        $column = 'address_id';
+        $column = 'addresses_id';
     }
     else if ($tablename == 'authors')
     {
-        $column = 'author_id';
+        $column = 'authors_id';
     }
     else if ($tablename == 'books')
     {
-        $column = 'book_id';
+        $column = 'books_id';
     }
     else if ($tablename == 'customers')
     {
-        $column = 'customer_id';
+        $column = 'customers_id';
     }
     else if ($tablename == 'genres')
     {
-        $column = 'genre_id';
+        $column = 'genres_id';
     }
     else if ($tablename == 'payments')
     {
-        $column = 'payment_id';
+        $column = 'payments_id';
     }
     else if ($tablename == 'inventory')
     {
@@ -41,15 +40,15 @@
     }
     else if ($tablename == 'purchases')
     {
-        $column = 'purchase_id';
+        $column = 'purchases_id';
     }
     else if ($tablename == 'staff')
     {
-        $column = 'staff_id';
+        $column = 'staffs_id';
     }
     else if ($tablename == 'stores')
     {
-        $column = 'store_id';
+        $column = 'stores_id';
     }
 
     // set cookie to table name
@@ -66,9 +65,6 @@
 
     // Close connection
     unset($pdo);
-
-    // Display result in JSON format
-    // echo json_encode($rows);
 ?>
 
 <!-- HTML -->
@@ -78,132 +74,9 @@
     <title>Bookstore</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-    // JavaScript to hide the loading screen when the page is fully loaded
-    window.addEventListener('load', function () {
-        var loadingScreen = document.getElementById('loading-screen');
-        loadingScreen.style.display = 'none';
-    });
-    $(document).ready(function() {
-        // Handle delete button click
-        $(document).on('click', '[id^="delete-btn-"]', function() {
-            var rowId = $(this).data('row-id');
-            
-            // Send AJAX request to delete the row
-            $.ajax({
-                url: 'delete_row.php',
-                method: 'POST',
-                data: { rowId: rowId },
-                success: function(response) {
-                    // Handle the response from the server
-                    alert(response);
-                    // Reload the table or perform any other necessary actions
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    console.log(xhr.responseText);
-                }
-            });
-        });
-
-        // Handle form submission
-        $('#insert-form').submit(function(event) {
-            // Prevent default form submission
-            event.preventDefault();
-
-            // Serialize the form data
-            var formData = $(this).serialize();
-
-            // Send an AJAX request to the insert_row.php file
-            $.ajax({
-                type: 'POST',
-                url: 'insert_row.php',
-                data: formData,
-                success: function(response) {
-                    // Display the response message
-                    alert(response);
-
-                    // Reload the table or perform any other necessary updates
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    // Display an error message if the request fails
-                    alert('An error occurred: ' + error);
-                }
-            });
-        });
-
-        // Edit button click event
-        $(document).on('click', '.edit-btn', function() {
-            var rowId = $(this).data('row-id');
-            var row = $(this).closest('tr');
-
-            // Convert row data to inputs
-            row.find('td:not(:last-child):not(:nth-last-child(2)').each(function() {
-                var value = $(this).text();
-                $(this).html('<input type="text" class="edit-input" value="' + value + '">');
-            });
-
-            // Change button to Save
-            $(this).text('Save').removeClass('edit-btn').addClass('save-btn');
-        });
-
-        // Save button click event
-        $(document).on('click', '.save-btn', function() {
-            var rowId = $(this).data('row-id');
-            var row = $(this).closest('tr');
-            var updateData = {};
-
-            // Get input values and updateData object
-            row.find('.edit-input').each(function() {
-                var columnName = $(this).closest('td').prev('td').text();
-                var value = $(this).val();
-                updateData[columnName] = value;
-                $(this).parent().text(value); // Replace input with updated text
-            });
-
-            // Send AJAX request to update the row
-            $.ajax({
-                url: 'update_row.php',
-                type: 'POST',
-                data: {
-                    rowId: rowId,
-                    updateData: updateData
-                },
-                success: function(response) {
-                    // Handle success response
-                    console.log(response);
-                    // Change button back to Edit
-                    row.find('.save-btn').text('Edit').removeClass('save-btn').addClass('edit-btn');
-                },
-                error: function(xhr, status, error) {
-                    // Handle error response
-                    console.error(error);
-                    // Change button back to Edit
-                    row.find('.save-btn').text('Edit').removeClass('save-btn').addClass('edit-btn');
-                }
-            });
-        });
-
-
-        // Handle button click
-        $('.button1').on('click', function() {
-            showLoadingPopup();
-        });
-
-        // Handle button click
-        $('.button2').on('click', function() {
-            showLoadingPopup();
-        });
-        
-        // Function to show the loading popup
-        function showLoadingPopup() {
-            var loadingScreen = $('#loading-screen');
-            loadingScreen.css('display', 'flex');
-        }
-    });
-    </script>
+    <script src="script.js"></script>
 </head>
 <body>
     

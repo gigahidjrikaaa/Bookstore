@@ -1,35 +1,36 @@
 <?php
-require_once('connection.php');
+// update_row.php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['rowId']) && isset($_POST['updateData'])) {
-        $rowId = $_POST['rowId'];
-        $updateData = $_POST['updateData'];
-        $tablename = $_COOKIE['table'];
+    // Retrieve the table, id, and updated data from the request
+    $table = $_POST['table'];
+    $id = $_POST['id'];
+    $updatedData = $_POST['updatedData'];
 
-        // Prepare the update query
-        $setStatements = [];
-        $values = [];
-        foreach ($updateData as $column => $value) {
-            $setStatements[] = "$column = :$column";
-            $values[":$column"] = $value;
+    // Perform the database update
+    require_once('connection.php'); // Include the database connection
+
+    try {
+        // Construct the SQL query based on the updated data
+        $updates = array();
+        foreach ($updatedData as $column => $value) {
+            $updates[] = "$column = '$value'";
         }
-        $setString = implode(', ', $setStatements);
+        $updatesString = implode(', ', $updates);
 
-        try {
-            // Update the row in the database
-            $sql = "UPDATE $tablename SET $setString WHERE id = :rowId";
-            $statement = $pdo->prepare($sql);
-            $values[':rowId'] = $rowId;
-            $statement->execute($values);
+        $sql = "UPDATE $table SET $updatesString WHERE $table"."_id = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
 
-            echo 'Row updated successfully.';
-        } catch (PDOException $e) {
-            echo 'Error updating row: ' . $e->getMessage();
-        }
-    } else {
-        echo 'Invalid request.';
+        echo "Row updated successfully.";
+    } catch (PDOException $e) {
+        echo "Error updating row: " . $e->getMessage();
     }
+
+    // Close the database connection
+    unset($pdo);
 } else {
-    echo 'Invalid request method.';
+    echo "Invalid request.";
 }
+?>
