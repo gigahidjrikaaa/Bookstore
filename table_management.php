@@ -30,6 +30,15 @@ require_once('connection.php');
         echo "</td>";
         echo "</tr>";
     }
+    // Add the extra row for inserting a new record
+    echo "<tr>";
+    foreach ($rows[0] as $column => $value) {
+        if (!is_numeric($column)) {
+            echo "<td><input type='text' name='$column' class='insert-input'></td>";
+        }
+    }
+    echo "<td><button class='insert-button' onclick=\"insertRow('$table')\">Insert</button></td>";
+    echo "</tr>";
     echo "</table>";
 }
 

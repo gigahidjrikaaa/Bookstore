@@ -14,6 +14,39 @@ $(document).ready(function() {
         var loadingScreen = $('#loading-screen');
         loadingScreen.css('display', 'flex');
     }
+
+    // Handle insert button click
+    $('.insert-button').on('click', function() {
+        var newRow = {};
+        var inputs = $(this).closest('tr.insert-row').find('input');
+
+        inputs.each(function() {
+            newRow[$(this).attr('name')] = $(this).val();
+        });
+
+        // set the table name the same value as the cookie
+        var tableName = document.cookie.split('=')[1];
+        
+        newRow['table'] = tableName;
+
+        // Send the new row data to the server for insertion
+        $.ajax({
+            url: 'insert_row.php',
+            method: 'POST',
+            data: newRow,
+            success: function(response) {
+                // Handle the server response
+                alert(response); // Display success message or handle errors
+                // Reload the table to display the updated data
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                // Handle error cases
+                alert('Error: ' + error); // Display error message
+            }
+        });
+    });
+
 });
 
 // Function to delete a row
@@ -49,12 +82,23 @@ function editRow(table, id) {
     cells.forEach(function(cell) {
         var value = cell.textContent;
         cell.innerHTML = '<input type="text" value="' + value + '">';
+        // if the column is "last_update", don't make it editable
+        if (cell.getAttribute('data-column') == 'last_update') {
+            cell.innerHTML = value;
+        }
     });
 
     // Change the button from "Edit" to "Save"
     var button = row.querySelector('.edit-button');
     button.innerHTML = 'Save';
     button.setAttribute('onclick', "saveRow('" + table + "', '" + id + "')");
+    // change the value of last_update to the current date and time
+    var date = new Date();
+    var dateString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    var timeString = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    var dateTimeString = dateString + ' ' + timeString;
+    var lastUpdateCell = row.querySelector('td[data-column="last_update"]');
+    lastUpdateCell.innerHTML = dateTimeString;
 }
 
 function saveRow(table, id) {
