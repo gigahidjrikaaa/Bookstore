@@ -24,9 +24,10 @@ $(document).ready(function() {
             newRow[$(this).attr('name')] = $(this).val();
         });
 
-        // set the table name the same value as the cookie
-        var tableName = document.cookie.split('=')[1];
-        
+        // set the table name the same value as the cookie with the name "table"
+        var tableName = getCookie('table');
+        // newRow['values'] = JSON.stringify(newRow); // Convert newRow to a JSON string
+
         newRow['table'] = tableName;
 
         // Send the new row data to the server for insertion
