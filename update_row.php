@@ -37,6 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute();
 
         echo "Row updated successfully.";
+        // Reload the page
+        header("Refresh:0");
     } catch (PDOException $e) {
         echo "Error updating row: " . $e->getMessage();
     }
