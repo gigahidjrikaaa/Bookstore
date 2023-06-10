@@ -51,7 +51,7 @@
         $column = 'stores_id';
     }
 
-    // set cookie to table name
+    // set cookie to table name 
     setcookie('table', $tablename, time() + (86400 * 30), "/");
 
     try{
