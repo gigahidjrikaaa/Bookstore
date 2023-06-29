@@ -21,7 +21,7 @@ if (isset($_POST['table']) && isset($_POST['id']) && isset($_POST['updatedData']
         // Bind the parameter values
         $stmt->execute($values);
 
-        echo "Row updated successfully." . " ID: " . $id . " Updated.";
+        echo "Row updated successfully.\n" . " ID: " . $id . " Updated.";
     } catch (PDOException $e) {
         echo "Error updating row: " . $e->getMessage();
     }

@@ -34,7 +34,7 @@ if (isset($_POST['table']) && isset($_POST['data'])) {
         // Execute the query
         $stmt->execute();
 
-        echo "Row inserted successfully." . " ID: " . $pdo->lastInsertId(); 
+        echo "Row inserted successfully.\n" . " ID: " . $pdo->lastInsertId() . " Inserted."; 
     } catch (PDOException $e) {
         echo "Error inserting row: " . $e->getMessage();
     }

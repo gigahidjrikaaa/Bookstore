@@ -11,7 +11,7 @@
             $stmt->bindParam(':id', $id);
             $stmt->execute();
 
-            echo "Row deleted successfully." . " ID: " . $id . " Deleted";
+            echo "Row deleted successfully.\n" . " ID: " . $id . " Deleted";
         } catch (PDOException $e) {
             echo "Error deleting row: " . $e->getMessage();
         }
