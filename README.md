@@ -2,6 +2,9 @@
 
 -----------------------------------------------------
 
+<img width="1280" alt="image" src="https://github.com/gigahidjrikaaa/Bookstore/assets/52191436/6b838378-c95c-4f59-adc4-f161116671d0">
+
+
 ## What is this?
 This is a project made for Database Technology course. It's a simple website made using PHP to show the tables from a database in PostgreSQL on an Azure VM. You can do Create, Read, Update, and Delete actions on the website. The changes you make on the website applies to the database.
 
