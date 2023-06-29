@@ -102,7 +102,7 @@
             <input type="radio" id="genres" name="table" value="genres">
             <label for="genres">Genres</label><br>
             <input type="radio" id="inventory" name="table" value="inventory">
-            <label for="orders">inventory</label><br>
+            <label for="orders">Inventory</label><br>
             <input type="radio" id="payments" name="table" value="payments">
             <label for="order_items">Payments</label><br>
             <input type="radio" id="purchases" name="table" value="purchases">
