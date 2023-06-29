@@ -11,6 +11,14 @@ if (isset($_POST['table']) && isset($_POST['id']) && isset($_POST['updatedData']
         $columns = array_keys($updatedData);
         $placeholders = implode(' = ?, ', $columns) . ' = ?';
 
+        // if values are null, set them to default
+        foreach ($updatedData as $column => $value) {
+            if ($value == null)
+            {
+                $updatedData[$column] = '0';
+            }
+        }
+
         // Append the ID to the values array
         $values = array_values($updatedData);
         $values[] = $id;

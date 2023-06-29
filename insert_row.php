@@ -14,11 +14,20 @@ if (isset($_POST['table']) && isset($_POST['data'])) {
         // Prepare the column names and placeholders
         $columns = implode(', ', array_keys($data));
         $placeholders = ':' . implode(', :', array_keys($data));
+        
+        // if values are null, set them to default 
+        foreach ($data as $column => $value) {
+            if ($value == null)
+            {
+                $data[$column] = '0';
+            }
+        }
 
         // Add the last_update column and value
         $columns .= ', last_update';
         $placeholders .= ', CURRENT_TIMESTAMP';
 
+        // For debugging
         // echo "Columns: $columns<br>";
         // echo "Placeholders: $placeholders<br>";
 
