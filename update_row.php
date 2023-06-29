@@ -35,11 +35,11 @@ if (isset($_POST['table']) && isset($_POST['id']) && isset($_POST['updatedData']
         // Commit the transaction
         $pdo->commit();
 
-        echo "Row updated successfully.\n" . "ID: " . $id . " Updated.";
+        echo "Row updated successfully.\n" . "ID: " . $id . " Updated.\n" . "COMMITED TRANSACTION";
     } catch (PDOException $e) {
         // Rollback the transaction in case of an error
         $pdo->rollback();
-        
+
         echo "Error updating row: " . $e->getMessage();
     }
 } else {

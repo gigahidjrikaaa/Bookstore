@@ -49,7 +49,7 @@ if (isset($_POST['table']) && isset($_POST['data'])) {
         // Commit the transaction
         $pdo->commit();
 
-        echo "Row inserted successfully.\n" . "ID: " . $pdo->lastInsertId() . " Inserted."; 
+        echo "Row inserted successfully.\n" . "ID: " . $pdo->lastInsertId() . " Inserted.\n" . "COMMITED TRANSACTION"; 
     } catch (PDOException $e) {
         // Rollback the transaction in case of an error
         $pdo->rollback();

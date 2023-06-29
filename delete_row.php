@@ -17,7 +17,7 @@
             // Commit the transaction
             $pdo->commit();
 
-            echo "Row deleted successfully.\n" . "ID: " . $id . " Deleted";
+            echo "Row deleted successfully.\n" . "ID: " . $id . " Deleted\n" . "COMMITED TRANSACTION";
         } catch (PDOException $e) {
             // Rollback the transaction in case of an error
             $pdo->rollback();
