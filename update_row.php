@@ -7,6 +7,9 @@ if (isset($_POST['table']) && isset($_POST['id']) && isset($_POST['updatedData']
     $updatedData = $_POST['updatedData'];
 
     try {
+         // Start the transaction
+         $pdo->beginTransaction();
+
         // Build the UPDATE query
         $columns = array_keys($updatedData);
         $placeholders = implode(' = ?, ', $columns) . ' = ?';
@@ -29,8 +32,14 @@ if (isset($_POST['table']) && isset($_POST['id']) && isset($_POST['updatedData']
         // Bind the parameter values
         $stmt->execute($values);
 
+        // Commit the transaction
+        $pdo->commit();
+
         echo "Row updated successfully.\n" . "ID: " . $id . " Updated.";
     } catch (PDOException $e) {
+        // Rollback the transaction in case of an error
+        $pdo->rollback();
+        
         echo "Error updating row: " . $e->getMessage();
     }
 } else {

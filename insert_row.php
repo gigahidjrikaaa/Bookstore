@@ -11,6 +11,9 @@ if (isset($_POST['table']) && isset($_POST['data'])) {
     echo "\n";
 
     try {
+        // Start the transaction
+        $pdo->beginTransaction();
+
         // Prepare the column names and placeholders
         $columns = implode(', ', array_keys($data));
         $placeholders = ':' . implode(', :', array_keys($data));
@@ -43,8 +46,14 @@ if (isset($_POST['table']) && isset($_POST['data'])) {
         // Execute the query
         $stmt->execute();
 
+        // Commit the transaction
+        $pdo->commit();
+
         echo "Row inserted successfully.\n" . "ID: " . $pdo->lastInsertId() . " Inserted."; 
     } catch (PDOException $e) {
+        // Rollback the transaction in case of an error
+        $pdo->rollback();
+
         echo "Error inserting row: " . $e->getMessage();
     }
 } else {
