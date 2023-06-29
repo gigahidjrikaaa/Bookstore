@@ -24,6 +24,8 @@ if (isset($_POST['table']) && isset($_POST['data'])) {
             {
                 $data[$column] = '0';
             }
+            // Sanitize the data input to prevent SQL injection
+            $data[$column] = htmlspecialchars($data[$column]);
         }
 
         // Add the last_update column and value

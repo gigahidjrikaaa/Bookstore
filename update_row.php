@@ -20,6 +20,8 @@ if (isset($_POST['table']) && isset($_POST['id']) && isset($_POST['updatedData']
             {
                 $updatedData[$column] = '0';
             }
+            // Sanitize the data input to prevent SQL injection
+            $updatedData[$column] = htmlspecialchars($updatedData[$column]);
         }
 
         // Append the ID to the values array
