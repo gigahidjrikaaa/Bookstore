@@ -11,6 +11,21 @@
         $table = $_POST['table'];
         $values = $_POST['values'];
 
+        // Sanitize the input using htmlspecialchars
+        $table = htmlspecialchars($table);
+        $values = htmlspecialchars($values);
+
+        // Sanitize the input using trim
+        $table = trim($table);
+        $values = trim($values);
+
+        // Sanitize the input using stripslashes
+        $table = stripslashes($table);
+        $values = stripslashes($values);
+
+        // Sanitize the input using 
+
+
         // Debugging: Print the received values
         echo "Table: $table<br>";
         echo "Values: ";

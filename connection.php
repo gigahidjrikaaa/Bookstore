@@ -2,8 +2,8 @@
     $host = '20.121.18.251';
     $port = '5432';
     $dbname = 'bookstore';
-    $username = 'postgres';
-    $password = '123';
+    $username = 'admin';
+    $password = 'pl,okmijn';
 
     try {
         $pdo = new PDO("pgsql:host=$host;port=$port;dbname=$dbname", $username, $password);

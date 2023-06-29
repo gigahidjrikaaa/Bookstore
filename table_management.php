@@ -1,6 +1,6 @@
 <?php
 require_once('connection.php');
-    function printTable($rows, $table) {
+function printTable($rows, $table) {
     echo "<table>";
     // Print table headers
     echo "<tr>";

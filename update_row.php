@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // if column name is last_update, set it to the current timestamp in the format YYYY-MM-DD HH:MM:SS
             if ($column == 'last_update') {
                 $value = "CURRENT_TIMESTAMP";
-            //! for some reason last_update is null. This is a temporary fix. 
+            //! for some reason, last_update is null. This is a temporary fix. 
             } else if ($column == 'null') {
                 $column = 'last_update';
                 $value = "CURRENT_TIMESTAMP";
