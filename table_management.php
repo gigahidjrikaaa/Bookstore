@@ -26,7 +26,7 @@ function printTable($rows, $table) {
         // Add edit and delete buttons with appropriate onclick events
         echo "<td>";
         echo "<button class='edit-button' onclick=\"editRow('$table', '$rowId')\">Edit</button>";
-        echo "<button onclick=\"deleteRow('$table', '$rowId')\">Delete</button>";
+        echo "<button class='button2' onclick=\"deleteRow('$table', '$rowId')\">Delete</button>";
         echo "</td>";
         echo "</tr>";
     }
@@ -37,7 +37,7 @@ function printTable($rows, $table) {
             echo "<td><input type='text' name='$column' class='insert-input'></td>";
         }
     }
-    echo "<td><button class='insert-button' onclick=\"insertRow('$table')\">Insert</button></td>";
+    echo "<td><button class='button3' onclick=\"insertRow('$table')\">Insert</button></td>";
     echo "</tr>";
     echo "</table>";
 }

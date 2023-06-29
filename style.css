@@ -7,11 +7,11 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  display: flexbox;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   background: #f5f5f5;
+  overflow-x: hidden !important;
 }
 
 .container {
@@ -61,9 +61,10 @@ body {
   border-collapse: collapse;
   border-color: black;
   margin: 0vh 0vh 0vh 0vh;
+  /* Crop the contents to fit the screen */
+  table-layout: fixed;
   /* center to the screen */
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
 }
@@ -111,6 +112,20 @@ body {
     justify-content: center;
     /* UPPERCASE */
     text-transform: uppercase;
+}
+
+table {
+  width: 100%;
+}
+
+/* Place the table in the middle */
+.table-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* center to the screen */
+  margin: 0vh 0vh 0vh 0vh;
 }
 
 .radio-container {
@@ -184,6 +199,7 @@ body {
   justify-content: center;
   text-transform: uppercase;
   font-style: italic;
+  flex-direction: column;
 }
 
 #loading-screen {
@@ -292,7 +308,7 @@ body {
   box-shadow: 0 0 10px darkgreen;
 }
 
-#edit-btn {
+.edit-button {
   display: inline-block;
   border-radius: 4px;
   background-color: #000000;
@@ -307,29 +323,8 @@ body {
   margin: 5px;
 }
 
-#edit-btn:hover {
+.edit-button:hover {
   background-color: royalblue;
   color: white;
   box-shadow: 0 0 10px darkblue;
-}
-
-#save-btn {
-  display: inline-block;
-  border-radius: 4px;
-  background-color: #000000;
-  border: none;
-  color: #FFFFFF;
-  text-align: center;
-  font-size: 15px;
-  padding: 10px;
-  width: 100px;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
-}
-
-#save-btn:hover {
-  background-color: green;
-  color: white;
-  box-shadow: 0 0 10px darkgreen;
 }
