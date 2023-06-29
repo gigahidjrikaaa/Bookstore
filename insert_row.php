@@ -57,6 +57,8 @@ if (isset($_POST['table']) && isset($_POST['data'])) {
         $pdo->rollback();
 
         echo "Error inserting row: " . $e->getMessage();
+        echo "\n\nID: " . $pdo->lastInsertId() . " Not Inserted\n" . "ROLLBACK TRANSACTION";
+        
     }
 } else {
     echo "Invalid request.";

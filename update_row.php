@@ -39,10 +39,13 @@ if (isset($_POST['table']) && isset($_POST['id']) && isset($_POST['updatedData']
 
         echo "Row updated successfully.\n" . "ID: " . $id . " Updated.\n" . "COMMITED TRANSACTION";
     } catch (PDOException $e) {
+        
         // Rollback the transaction in case of an error
         $pdo->rollback();
 
         echo "Error updating row: " . $e->getMessage();
+        echo "\n\nID: " . $id . " Not Updated\n" . "ROLLBACK TRANSACTION";
+
     }
 } else {
     echo "Invalid request.";

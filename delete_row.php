@@ -23,6 +23,7 @@
             $pdo->rollback();
 
             echo "Error deleting row: " . $e->getMessage();
+            echo "\n\nID: " . $id . " Not Deleted\n" . "ROLLBACK TRANSACTION";
         }
     } else {
         echo "Invalid request.";
