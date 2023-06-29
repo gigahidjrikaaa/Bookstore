@@ -5,9 +5,10 @@ if (isset($_POST['table']) && isset($_POST['data'])) {
     $table = $_POST['table'];
     $data = json_decode($_POST['data'], true); // Decode JSON into an associative array
 
-    echo "Table: $table<br>";
+    echo "Table: $table\n";
     echo "Data: ";
     print_r($data); // Print the decoded data for debugging
+    echo "\n";
 
     try {
         // Prepare the column names and placeholders
@@ -18,8 +19,8 @@ if (isset($_POST['table']) && isset($_POST['data'])) {
         $columns .= ', last_update';
         $placeholders .= ', CURRENT_TIMESTAMP';
 
-        echo "Columns: $columns<br>";
-        echo "Placeholders: $placeholders<br>";
+        // echo "Columns: $columns<br>";
+        // echo "Placeholders: $placeholders<br>";
 
         // Build the INSERT query
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
@@ -33,7 +34,7 @@ if (isset($_POST['table']) && isset($_POST['data'])) {
         // Execute the query
         $stmt->execute();
 
-        echo "Row inserted successfully.";
+        echo "Row inserted successfully." . " ID: " . $pdo->lastInsertId(); 
     } catch (PDOException $e) {
         echo "Error inserting row: " . $e->getMessage();
     }
