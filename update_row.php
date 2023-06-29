@@ -26,10 +26,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $value = $value !== null ? "'" . trim($value) . "'" : "null";
             }
             $updates[] = "$column = $value";
+            echo "Column: $column<br>";
+            echo "Value: $value<br>";
         }
         $updatesString = implode(', ', $updates);
         // if there is a null value, set it to null
         $updatesString = str_replace("''", "null", $updatesString);
+
+        echo "Updates: $updatesString<br>";
 
         $sql = "UPDATE $table SET $updatesString WHERE $table"."_id = :id";
         $stmt = $pdo->prepare($sql);

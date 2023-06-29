@@ -8,6 +8,11 @@ $(document).ready(function() {
     $('.button2').on('click', function() {
         showLoadingPopup();
     });
+
+    // Handle button click
+    $('.button3').on('click', function() {
+        showLoadingPopup();
+    });
     
     // Function to show the loading popup
     function showLoadingPopup() {
@@ -15,30 +20,38 @@ $(document).ready(function() {
         loadingScreen.css('display', 'flex');
     }
 
-    // Handle insert button click
-    $('.insert-button').on('click', insertRow);
+    $('.insert-button').on('click', function() {
+        insertRow('<?= $tablename ?>');
+    });
+    
+
+    // Handle + button click
+    $('#add-row-button').on('click', function() {
+        addInputRow();
+    });
 
 });
 
 function insertRow() {
+    var table = $('#tableName').text(); // Get the table name from the HTML
     var newRow = {};
-    var inputs = $(this).closest('tr.insert-row').find('input');
+    var inputs = $('.insert-row input');
 
     inputs.each(function() {
         newRow[$(this).attr('name')] = $(this).val();
     });
 
-    // set the table name the same value as the cookie with the name "table"
-    var tableName = getCookie('table');
-    // newRow['values'] = JSON.stringify(newRow); // Convert newRow to a JSON string
-
-    newRow['table'] = tableName;
+    // Convert newRow to a JSON string
+    var jsonData = JSON.stringify(newRow);
 
     // Send the new row data to the server for insertion
     $.ajax({
         url: 'insert_row.php',
         method: 'POST',
-        data: newRow,
+        data: {
+            table: table,
+            data: jsonData
+        },
         success: function(response) {
             // Handle the server response
             alert(response); // Display success message or handle errors
@@ -51,6 +64,8 @@ function insertRow() {
         }
     });
 }
+
+
 
 function getCookie(name) {
     var cookieName = name + "=";

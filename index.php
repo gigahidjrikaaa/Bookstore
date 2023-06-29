@@ -42,9 +42,9 @@
     {
         $column = 'purchases_id';
     }
-    else if ($tablename == 'staffs')
+    else if ($tablename == 'staff')
     {
-        $column = 'staffs_id';
+        $column = 'staff_id';
     }
     else if ($tablename == 'stores')
     {
@@ -96,7 +96,7 @@
             <label for="customers">Customers</label><br>
             <input type="radio" id="addresses" name="table" value="addresses">
             <label for="addresses">Addresses</label><br>
-            <input type="radio" id="staffs" name="table" value="staffs">
+            <input type="radio" id="staffs" name="table" value="staff">
             <label for="staffs">Staffs</label><br>
             <input type="radio" id="genres" name="table" value="genres">
             <label for="genres">Genres</label><br>

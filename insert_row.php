@@ -1,46 +1,43 @@
 <?php
-    require_once('connection.php');
+require_once('connection.php');
 
-    // $table = $_POST['table'];
-    // $values = $_POST['values'];
-    
-    // echo $table;
-    // echo $values;
+if (isset($_POST['table']) && isset($_POST['data'])) {
+    $table = $_POST['table'];
+    $data = json_decode($_POST['data'], true); // Decode JSON into an associative array
 
-    if (isset($_POST['table']) && isset($_POST['values'])) {
-        $table = $_POST['table'];
-        $values = $_POST['values'];
+    echo "Table: $table<br>";
+    echo "Data: ";
+    print_r($data); // Print the decoded data for debugging
 
-        // Sanitize the input using htmlspecialchars
-        $table = htmlspecialchars($table);
-        $values = htmlspecialchars($values);
+    try {
+        // Prepare the column names and placeholders
+        $columns = implode(', ', array_keys($data));
+        $placeholders = ':' . implode(', :', array_keys($data));
 
-        // Sanitize the input using trim
-        $table = trim($table);
-        $values = trim($values);
+        // Add the last_update column and value
+        $columns .= ', last_update';
+        $placeholders .= ', CURRENT_TIMESTAMP';
 
-        // Sanitize the input using stripslashes
-        $table = stripslashes($table);
-        $values = stripslashes($values);
+        echo "Columns: $columns<br>";
+        echo "Placeholders: $placeholders<br>";
 
-        // Sanitize the input using 
+        // Build the INSERT query
+        $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
+        $stmt = $pdo->prepare($sql);
 
-
-        // Debugging: Print the received values
-        echo "Table: $table<br>";
-        echo "Values: ";
-        print_r($values);
-        echo "<br>";
-
-        try {
-            $sql = "INSERT INTO $table VALUES ($values)";
-            $pdo->exec($sql);
-
-            echo "Row inserted successfully.";
-        } catch (PDOException $e) {
-            echo "Error inserting row: " . $e->getMessage();
+        // Bind the parameter values
+        foreach ($data as $column => $value) {
+            $stmt->bindValue(':' . $column, $value);
         }
-    } else {
-        echo "Invalid request.";
+
+        // Execute the query
+        $stmt->execute();
+
+        echo "Row inserted successfully.";
+    } catch (PDOException $e) {
+        echo "Error inserting row: " . $e->getMessage();
     }
+} else {
+    echo "Invalid request.";
+}
 ?>
