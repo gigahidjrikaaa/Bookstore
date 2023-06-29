@@ -83,6 +83,7 @@
 
     <div class="header">
         <h1>Great Reading Bookstore</h1>
+        <p id='subtitle'>Please don't hack this, it's for a college project :D</p>
     </div>
 
     <div class="table_choice">

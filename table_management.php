@@ -20,7 +20,7 @@ function printTable($rows, $table) {
         foreach ($row as $column => $value) {
             // if column name is not number, print it
             if (!is_numeric($column)) {
-                echo "<td>$value</td>";
+                echo "<td data-column='$column'>$value</td>";
             }
         }
         // Add edit and delete buttons with appropriate onclick events

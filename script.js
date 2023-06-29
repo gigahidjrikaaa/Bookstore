@@ -13,6 +13,8 @@ $(document).ready(function() {
     $('.button3').on('click', function() {
         showLoadingPopup();
     });
+
+
     
     // Function to show the loading popup
     function showLoadingPopup() {
@@ -115,10 +117,11 @@ function editRow(table, id) {
 
     // Iterate over the cells and make them editable
     cells.forEach(function(cell) {
+        var column = cell.getAttribute('data-column');
         var value = cell.textContent;
         cell.innerHTML = '<input type="text" value="' + value + '">';
         // if the column is "last_update", don't make it editable
-        if (cell.getAttribute('data-column') == 'last_update') {
+        if (column == 'last_update') {
             cell.innerHTML = value;
         }
     });
@@ -149,7 +152,8 @@ function saveRow(table, id) {
     // Iterate over the cells and retrieve the updated values
     cells.forEach(function(cell) {
         var column = cell.getAttribute('data-column');
-        var value = cell.querySelector('input').value;
+        var input = cell.querySelector('input');
+        var value = input ? input.value : cell.textContent;
         updatedData[column] = value;
         cell.textContent = value; // Update the cell with the new value
     });
@@ -158,6 +162,9 @@ function saveRow(table, id) {
     var button = row.querySelector('.edit-button');
     button.innerHTML = 'Edit';
     button.setAttribute('onclick', "editRow('" + table + "', '" + id + "')");
+    // show the loading popup
+    var loadingScreen = $('#loading-screen');
+    loadingScreen.css('display', 'flex');
 
     // Send the updated data to the server
     $.ajax({
@@ -169,7 +176,12 @@ function saveRow(table, id) {
             updatedData: updatedData
         },
         success: function(response) {
-            alert(response);
+            // Hide the loading popup
+            loadingScreen.css('display', 'none');
+            // wait 1 second before displaying the response
+            setTimeout(function() {
+                alert(response);
+            },500);
         },
         error: function(xhr, status, error) {
             console.log(xhr.responseText);
