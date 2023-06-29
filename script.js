@@ -162,6 +162,7 @@ function saveRow(table, id) {
     var button = row.querySelector('.edit-button');
     button.innerHTML = 'Edit';
     button.setAttribute('onclick', "editRow('" + table + "', '" + id + "')");
+    
     // show the loading popup
     var loadingScreen = $('#loading-screen');
     loadingScreen.css('display', 'flex');
